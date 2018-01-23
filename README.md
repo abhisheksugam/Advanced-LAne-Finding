@@ -167,14 +167,11 @@ Here's a [link to my video result](./project_output.mp4) named `project_output.m
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-The major issues faced in implementing this project were to find the correct parameters for thresholding. The pipeline is quite specific to the project video since currently I am
-only averaging over previous frames for the right lane. Under heavy shadows this pipeling doesn't perform well.
+The major issues faced in implementing this project were to find the correct parameters for thresholding. The pipeline is quite specific to the project video since currently I am only averaging over previous frames for the right lane. Under heavy shadows this pipeling doesn't perform well.
 
 There are several ways to make this more robust -
-* A better Class structure for each Lane Line to help keep track of previous N frames.
+
 * Better tuning for gradient based thresholding, exploring different colorspaces.
-* Improved perspective transform by not hardcoding the source and destination points. One option is to use hough's transform to identify lanes in a test image and use their end points.
-
-
+* Improved perspective transform by not hardcoding the source and destination points. 
 
 
