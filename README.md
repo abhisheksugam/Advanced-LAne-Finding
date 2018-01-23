@@ -1,5 +1,5 @@
 ## Advanced Lane Finding
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+
 
 The goals / steps of this project are the following:
 
@@ -25,25 +25,16 @@ The goals / steps of this project are the following:
 [image9]: ./output_images/final_image.jpg "Final Image"
 [video1]: ./project_output.mp4 "Video"
 
-## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
-
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+### Writeup / README
 
 You're reading it!
-###Camera Calibration
+### Camera Calibration
 
-####1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
 The code for this step is contained in the `camera_calibration.ipynb` Jupyter Notebook.  
-
-In `Code Cell 2` of this notebook, I define the number of inner corners (9x6) in the chessboards by visual inspection. After reading in the chessboard images using python's `glob`
-library, each image is converted to grayscale and passed to OpenCV's `findChessboardCorners` function which outputs the corners of each square (inner) in the chessboard.
-
-[The following explanation is provided by Udacity and explains the process quite well]
 
 For every image, two lists, `objpoints` and `imgpoints` are updated. 
 
@@ -62,12 +53,12 @@ I then use these coefficients and undistort a test image using OpenCV's `cv2.und
 ###Pipeline (single images)
 The code for the following section is in the `Advanced_Lane_Finding.ipynb` Jupyter Notebook.
 
-####1. Provide an example of a distortion-corrected image.
+#### 1. Provide an example of a distortion-corrected image.
 The camera matrix and distortion coefficients obtained above were used to correct for distortion in test images and the video frames. Following is a sample of that process -
 
 ![alt text][image3]
 
-####2. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+#### 2. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 In `Code Cell 5` of the notebook, I implemented the `perspective_transform()` and the `undist_img()` functions. The `undist_img` function took in the original image, and undistorted it
 and also outputted the source and destination points based on the image dimensions, that were later utilized to obtain a transform using OpenCV's `getPerspectiveTransform()` function.
@@ -86,7 +77,7 @@ the corners of the image, they aren't visible as such.
 
 ![alt text][image4]
 
-####3. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
+#### 3. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
 Initially I tried to utilize both color and sobel based thresholding to obtain a binary thresholded image. However sobel thresholding required a lot of fine-tuning to produce noise
 free results. So instead, I just stuck with color thresholding. I started to experiment with some colorspaces initially, but since that was time consuming, I decided to implement an 
@@ -110,7 +101,7 @@ Following is the binary image I obtained
 
 
 
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 In `Code Cell 7`, the `line_coords()` function calculated the histogram of 10 equally sized sections of the thresholded image. For each section I identify the histogram peaks and the
 corresponding coordinates, and filter out some of the noise. Here is the histogram of the thresholded image
@@ -134,7 +125,7 @@ to smooth out any aberrations.
 In `Code Cell 13`, the `draw_lane_line()` function drew the lane lines and filled the lane area using OpenCV's `polylines()` and `fillPoly()` functions on top of a blank image.
 This image was then unwarped using OpenCV's `warpPerspective()` function. The output of this is shown in the 6th step below.
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
 The radius of curvature and the position of vehicle are implemented in the functions `lane_curvature()` defined in `Code Cell 11` and `distance_from_lane()` defined in `Code Cell 12`.
 
@@ -164,17 +155,17 @@ Here is the output of the above pipeline on a specific frame of the video -
 
 ---
 
-###Pipeline (video)
+### Pipeline (video)
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 Here's a [link to my video result](./project_output.mp4) named `project_output.mp4` [also attached]. The entire pipeline is run through the `process_video()` function in `Code Cell 15`.
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 The major issues faced in implementing this project were to find the correct parameters for thresholding. The pipeline is quite specific to the project video since currently I am
 only averaging over previous frames for the right lane. Under heavy shadows this pipeling doesn't perform well.
