@@ -27,9 +27,6 @@ The goals / steps of this project are the following:
 
 
 ---
-### Writeup / README
-
-You're reading it!
 ### Camera Calibration
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
